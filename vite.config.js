@@ -1,14 +1,25 @@
 import { defineConfig } from 'vite';
-import { vite } from 'atomizer-plugins';
+// import { esbuild, vite } from 'atomizer-plugins';
 import atomizerConfig from './atomizer.config.js';
+import { atomizerPlugin } from './atomizerPlugin.js';
 
-const atomizerPlugin = vite({
-    config: atomizerConfig,
-    outfile: 'dist/atomizer.css',
-});
+// const atomizerPluginBuild = vite({
+//     config: atomizerConfig,
+//     outfile: 'dist/atomizer.css',
+// });
+
+// const atomizerPluginDev = esbuild({
+//     config: atomizerConfig,
+//     outfile: 'dist/atomizer.css',
+// });
 
 export default defineConfig(() => {
     return {
-        plugins: [atomizerPlugin],
+        plugins: [
+            atomizerPlugin({
+                    config: atomizerConfig,
+                    outfile: 'atomizer.scss',
+                })
+        ],
     };
 });
