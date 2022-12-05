@@ -1,7 +1,8 @@
 import Atomizer from "atomizer";
 import fs from 'fs';
+import { Plugin } from "vite";
 
-export const atomizerPlugin = (options) => {
+export const atomizerPlugin = (options): Plugin => {
     const atomizer = new Atomizer({
         verbose: options.verbose,
     });
@@ -26,5 +27,11 @@ export const atomizerPlugin = (options) => {
             writeToFile();
             return null;
         },
+        transformIndexHtml(html) {
+            // Find atomic classes and add them to our cache
+            lookup.set('entry-point', atomizer.findClassNames(html));
+            writeToFile();
+            return html;
+        }
     };
 };
